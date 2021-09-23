@@ -110,9 +110,23 @@ function TasksProvider({ children }) {
     }
 
 
-
     const value = {
-
+        tasks,
+        taskOrder,
+        loadedTask,
+        setTaskOrder,
+        addNewTask,
+        deleteTask,
+        markTaskDone,
+        loadTask,
+        updateTaskTitle,
+        updateTaskDuration,
+        clearCompletedTasks,
+        clearLoadedTask,
+        setCountdownIsRunning,
+        countdownIsRunning,
+        extendTime,
+        date
     }
 
     return (
@@ -122,4 +136,4 @@ function TasksProvider({ children }) {
     )
 }
 
-export default TasksContext
+export default TasksProvider;
