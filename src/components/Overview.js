@@ -16,7 +16,7 @@ function Overview() {
                     </div>
                     <div className="info-wrapper">
                         <p>Completed today</p>
-                        <p>{this.props.completedActivities} acticvity</p>
+                        {/* <p>{this.props.completedActivities} acticvity</p> */}
                     </div>
                 </div>
 
@@ -26,7 +26,7 @@ function Overview() {
                     </div>
                     <div className="info-wrapper">
                         <p>Time left</p>
-                        <p> none{this.props.timeLeft}</p>
+                        {/* <p> none{this.props.timeLeft}</p> */}
                     </div>
                 </div>
             </div>

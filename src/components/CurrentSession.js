@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
 import Countdown, { zeroPad } from 'react-countdown';
-import { FaBullseye } from 'react-icons/fa';
+// import { FaBullseye } from 'react-icons/fa';
 import { BiTargetLock } from 'react-icons/bi';
-import doneSound from '../sounds/task_done.mp3';
-import countdownOverSound from '../sounds/alarm_beep_3.mp3';
+// import doneSound from '../sounds/task_done.mp3';
+// import countdownOverSound from '../sounds/alarm_beep_3.mp3';
 import { useTasks } from '../contexts/TasksContext';
 
 function CurrentSession() {
@@ -12,11 +12,11 @@ function CurrentSession() {
 
     const { clearLoadedTask, markTaskDone, loadedTask, setCountdownIsRunning, countdownIsRunning, extendTime, date } = useTasks();
 
-    const doneSound = new Audio(doneSound);
-    const countdownFinishSound = new Audio(countdownOverSound);
+    // const doneSound = new Audio(doneSound);
+    // const countdownFinishSound = new Audio(countdownOverSound);
 
     // const userClickedDone = useRef(false);
-    const countdownApi = useRef();
+    let countdownApi = useRef();
 
     function onStartClick() {
         setUserClickedDone(false);
@@ -35,7 +35,7 @@ function CurrentSession() {
     function onCountdownComplete(e) {
         if (!userClickedDone) {
             setHideExtend(false);
-            countdownFinishSound.play();
+            // countdownFinishSound.play();
         }
         // reset the flag
         setUserClickedDone(false);
@@ -58,7 +58,7 @@ function CurrentSession() {
 
         if (taskId) {
             markTaskDone(taskId);
-            doneSound.play();
+            // doneSound.play();
         }
 
         setHideExtend(true);
@@ -83,10 +83,10 @@ function CurrentSession() {
                 <p id="task-title">{loadedTask.title ? loadedTask.title : "No task selected"}</p>
                 <Countdown
                     ref={setRef}
-                    date={this.props.date}
+                    date={date}
                     controlled={false}
                     autoStart={false}
-                    onPause={() => console.log('pause handler')} // wtf happened here // onPause={this.handlePause}
+                    onPause={() => console.log('pause handler')} // onPause={this.handlePause}
                     overtime={false}
                     renderer={renderer}
                     onComplete={onCountdownComplete}

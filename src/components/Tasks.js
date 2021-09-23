@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useTasks } from '../contexts/TasksContext';
 import Task from './Task';
-import TaskAddInput from './TaskAddInput';
+import TaskInput from './TaskInput';
 
 function Tasks() {
     const [isAddingTask, setIsAddingTask] = useState(false);
@@ -54,7 +54,7 @@ function Tasks() {
                             );
                         })}
                         {provided.placeholder}
-                        {isAddingTask && <TaskAddInput onFocusOut={closeInput} />}
+                        {isAddingTask && <TaskInput onFocusOut={closeInput} />}
                         <div className="new-task-add" onClick={openInput}>
                             <p>+ Add new task</p>
                         </div>
