@@ -1,6 +1,40 @@
 import { useRef, useEffect } from 'react';
 import { GrDrag } from 'react-icons/gr';
 import { useTasks } from '../contexts/TasksContext';
+import styled from 'styled-components';
+
+const TaskInputContainer = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: .5rem;
+`;
+
+const DragHandleHide = styled.div`
+    svg {
+        opacity: 0;
+    }
+`;
+
+const InputSpanContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    span {
+        width: 100%;
+        color: var(--text-primary);
+        font-weight: 600;
+        outline: none;
+    }
+`;
+
+const Container = styled.div`
+    background-color: var(--gray-94);
+    border: none;
+    padding: 1rem 1.3rem;
+    border-radius: 7px;
+    width: 100%;
+    box-shadow: var(--shadow-sm);
+`;
+
 
 function TaskInput(props) {
     const { addNewTask } = useTasks();
@@ -34,10 +68,10 @@ function TaskInput(props) {
     }
 
     return (
-        <div className="task-wrapper hide-handle">
-            <div><GrDrag /></div>
-            <div className="task-add">
-                <div className="task-input">
+        <TaskInputContainer className="task-wrapper hide-handle">
+            <DragHandleHide><GrDrag /></DragHandleHide>
+            <Container>
+                <InputSpanContainer>
                     <span
                         contentEditable
                         onBlur={handleFocusOut}
@@ -45,11 +79,10 @@ function TaskInput(props) {
                         rows={1}
                         name="taskInput"
                         ref={textareaRef}
-                        className="add"
                     ></span>
-                </div>
-            </div>
-        </div>
+                </InputSpanContainer>
+            </Container>
+        </TaskInputContainer>
     );
 }
 

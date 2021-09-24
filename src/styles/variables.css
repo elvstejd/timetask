@@ -1,0 +1,99 @@
+:root {
+  /* FONTS */
+  --font-family-sans: "Inter", -apple-system, BlinkMacSystemFont, helvetica,
+    arial, sans-serif;
+  --font-family-sans-display: "Inter", -apple-system, BlinkMacSystemFont,
+    helvetica, arial, sans-serif;
+
+  --xxxl: 2.2rem;
+  --xxl: 1.8rem;
+  --xl: 1.4rem;
+  --lg: 1.15rem;
+  --md: 1rem;
+  --sm: 0.9rem;
+  --xs: 0.8rem;
+
+  /* ---------COLORS--------- */
+  /* neutral */
+  --gray-10: hsl(230, 10%, 10%);
+  --gray-20: hsl(230, 10%, 20%);
+  --gray-30: hsl(230, 10%, 30%);
+  --gray-40: hsl(230, 10%, 40%);
+  --gray-50: hsl(230, 10%, 50%);
+  --gray-60: hsl(230, 10%, 60%);
+  --gray-70: hsl(230, 10%, 70%);
+  --gray-80: hsl(230, 10%, 80%);
+  --gray-90: hsl(230, 10%, 90%);
+  --gray-92: hsl(230, 10%, 92%);
+  --gray-94: hsl(230, 10%, 94%);
+  --gray-96: hsl(230, 10%, 96%);
+  --gray-98: hsl(230, 10%, 98%);
+
+  /* primary */
+  --blue-40: hsl(194, 90%, 40%);
+  --blue-50: hsl(194, 85%, 50%);
+  --blue-55: hsl(194, 90%, 55%);
+  --blue-60: hsl(194, 90%, 60%);
+  --blue-65: hsl(194, 90%, 65%);
+  --blue-70: hsl(194, 90%, 70%);
+  --blue-75: hsl(194, 90%, 75%);
+  --blue-80: hsl(194, 90%, 80%);
+  --blue-85: hsl(194, 90%, 85%);
+  --blue-90: hsl(194, 90%, 90%);
+  --blue-96: hsl(194, 90%, 96%);
+  --blue-98: hsl(194, 90%, 98%);
+
+  /* semantic */
+  --red-50: hsl(0, 80%, 60%);
+  --red-60: hsl(0, 80%, 65%);
+  --red-96: hsl(0, 80%, 96%);
+
+  --orange-20: hsl(40, 100%, 30%);
+  --orange-40: hsl(40, 80%, 40%);
+  --orange-50: hsl(30, 100%, 50%);
+  --orange-60: hsl(40, 100%, 65%);
+  --orange-96: hsl(30, 100%, 96%);
+
+  --yellow-60: hsl(50, 100%, 65%);
+  --yellow-70: hsl(50, 100%, 70%);
+  --yellow-80: hsl(50, 100%, 80%);
+  --yellow-90: hsl(50, 100%, 90%);
+  --yellow-95: hsl(50, 100%, 95%);
+
+  --green-40: hsl(133, 60%, 40%);
+  --green-45: hsl(133, 60%, 45%);
+  --green-50: hsl(133, 60%, 50%);
+  --green-75: hsl(133, 60%, 75%);
+  --green-85: hsl(133, 60%, 85%);
+  --green-94: hsl(133, 60%, 94%);
+
+  /* text colors */
+  --text-primary: var(--gray-20);
+  --text-secondary: var(--gray-50);
+  --text-tertiary: var(--gray-70);
+
+  /* brand colors */
+  --brand-primary: var(--blue-65);
+  --brand-primary-light: var(--blue-75);
+  --brand-primary-dark: var(--blue-55);
+
+  --brand-secondary: var(--green-60);
+  --brand-secondary-light: var(--green-70);
+  --brand-secondary-dark: var(--green-50);
+
+  /* background colors */
+  --background-color: var(--gray-94);
+
+  /* misc */
+  --destructive: var(--red-50);
+
+  /* ---------SHADOWS--------- */
+  --shadow-sm: 0 1px 3px rgba(51, 51, 51, 0.2);
+  --shadow-md: 0 4px 6px rgba(26, 26, 26, 0.1);
+  --shadow: hsla(40, 10%, 60%, 0.1); /* TODO - transparent gray color defs */
+
+  /* ---------BORDER RADIUS--------- */
+  --border-radius-lg: 9px;
+  --border-radius-md: 6px;
+  --border-radius-sm: 3px;
+}
