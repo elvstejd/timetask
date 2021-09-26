@@ -213,16 +213,7 @@ function Task(props) { // index, id, name: title, duration
     //     }
     // }
 
-    function handleTaskSelect(e) {
-        // try { // TODO: use the props.currentTask.done property instead
-        //     if (e.currentTarget.className.includes('task') &&
-        //         !e.currentTarget.className.includes('done')) {
-        //         loadTask(props.currentTask);
-        //     }
-        // } catch (e) {
-
-        // }
-
+    function handleTaskSelect() {
         if (props.currentTask.done) return;
         loadTask(props.currentTask);
         console.log("task load", props.currentTask);
