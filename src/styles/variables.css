@@ -93,7 +93,11 @@
   --shadow: hsla(40, 10%, 60%, 0.1); /* TODO - transparent gray color defs */
 
   /* ---------BORDER RADIUS--------- */
+  --border-radius-xl: 12px;
   --border-radius-lg: 9px;
   --border-radius-md: 6px;
   --border-radius-sm: 3px;
+
+  /* ---------SIZES--------- */
+  --card-size: 18rem;
 }

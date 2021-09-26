@@ -5,6 +5,41 @@ import { BiTargetLock } from 'react-icons/bi';
 // import doneSound from '../sounds/task_done.mp3';
 // import countdownOverSound from '../sounds/alarm_beep_3.mp3';
 import { useTasks } from '../contexts/TasksContext';
+import { Card } from '../styles/shared/Card';
+import { CardTitle } from '../styles/shared/CardTitle';
+import styled from 'styled-components';
+
+
+const TimerCard = styled(Card)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const TaskTitle = styled.p`
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: .6rem;
+    overflow: hidden;
+`;
+
+const CountdownWrapper = styled.span`
+    font-size: 3rem;
+    margin-bottom: .6rem;
+`;
+
+const ButtonsContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+const ControlButton = styled.button`
+    font-family: var(--font-family-sans);
+    border: none;
+    padding: .5rem .7rem;
+    border-radius: var(--border-radius-md);  
+    display: ${props => props.hide ? 'none' : 'block'} 
+`;
 
 function CurrentSession() {
     const [hideExtend, setHideExtend] = useState(true);
@@ -68,19 +103,19 @@ function CurrentSession() {
     }
 
     function renderer({ hours, minutes, seconds }) {
-        return <span className="countdown">{hours}:{zeroPad(minutes)}:{zeroPad(seconds)}</span>;
+        return <CountdownWrapper>{hours}:{zeroPad(minutes)}:{zeroPad(seconds)}</CountdownWrapper>;
     };
 
 
     return (
         <div>
-            <div className="info-title">
+            <CardTitle>
                 <BiTargetLock />
                 <h3>Current Session</h3>
-            </div>
+            </CardTitle>
 
-            <div className="info-card timer">
-                <p id="task-title">{loadedTask.title ? loadedTask.title : "No task selected"}</p>
+            <TimerCard>
+                <TaskTitle>{loadedTask.title ? loadedTask.title : "No task selected"}</TaskTitle>
                 <Countdown
                     ref={setRef}
                     date={date}
@@ -92,30 +127,28 @@ function CurrentSession() {
                     onComplete={onCountdownComplete}
                 />
 
-                <div id="timer-btns">
-                    <button
+                <ButtonsContainer>
+                    <ControlButton
                         onClick={countdownIsRunning ? onPauseClick : onStartClick}
-                        className={`control-btn ${!hideExtend && "hide"}`}
+                        hide={!hideExtend}
                     >
                         {countdownIsRunning ? "Pause" : "Start"}
-                    </button>
-                    <button
+                    </ControlButton>
+                    <ControlButton
                         onClick={onExtendClick}
-                        className={`control-btn ${hideExtend && "hide"}`}
+                        hide={hideExtend}
                     >
                         Extend
-                    </button>
-                    <button
-                        className="control-btn"
+                    </ControlButton>
+                    <ControlButton
                         onClick={handleDoneClick}
                     >
                         Done
-                    </button>
-                </div>
-            </div>
+                    </ControlButton>
+                </ButtonsContainer>
+            </TimerCard>
         </div>
     );
-
 }
 
 

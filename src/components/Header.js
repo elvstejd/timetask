@@ -7,13 +7,13 @@ const app = {
 
 const HeaderContainer = styled.header`
     display: flex;
-    background: $header-blue;
+    background: var(--brand-primary-dark);
     justify-content: space-between;
     align-items: center;
     height: 4rem;
     margin-bottom: 2.5rem;
     padding: 0 2rem;
-    color: white;
+    color: var(--gray-98);
     font-weight: 600;
 `;
 

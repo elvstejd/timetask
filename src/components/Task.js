@@ -9,7 +9,7 @@ import styled from 'styled-components';
 const TaskContainer = styled.div` 
     display: flex;
     justify-content: space-between;
-    background-color: var(--gray-94);
+    background-color: var(--gray-96);
     box-shadow: var(--shadow-sm);
     padding: .7rem 1.3rem;
     border-radius: var(--border-radius-md);
