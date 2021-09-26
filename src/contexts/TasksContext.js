@@ -25,9 +25,9 @@ function TasksProvider({ children }) {
         setTaskOrder(taskOrder.concat(newTask.id));
     }
 
-    function updateTaskTitle(taskId, newName) {
+    function updateTaskTitle(taskId, newTitle) {
         const newTasksObject = Object.assign({}, tasks);
-        newTasksObject[taskId].name = newName;
+        newTasksObject[taskId].title = newTitle;
 
         setTasks(newTasksObject);
     }
@@ -47,39 +47,21 @@ function TasksProvider({ children }) {
     }
 
     function loadTask(task) {
-        if (!this.state.countdownIsRunning) { // TODO timer context
+        if (!countdownIsRunning) {
             const miliseconds = durationToMiliseconds(task.duration);
-
-            setLoadedTask({ title: task.name, id: task.id });
+            setLoadedTask({ title: task.title, id: task.id });
             setDate(Date.now() + miliseconds);
-
-            // this.setState(() => ({
-            //     loadedTaskTitle: task.name,
-            //     loadedTaskId: task.id,
-            //     date: Date.now() + miliseconds
-            // }));
         }
     }
 
     function clearLoadedTask() {
-        setLoadedTask({ title: null, id: null });
+        setLoadedTask({});
         setDate(Date.now());
-
-        // this.setState(() => ({
-        //     loadedTaskTitle: null,
-        //     loadedTaskId: null,
-        //     date: Date.now()
-        // }));
     };
 
     /* COUNTDOWN METHOD */
-
     function extendTime(ms) {
         setDate(Date.now() + 5000);
-
-        // this.setState(() => ({
-        //     date: Date.now(),
-        // }));
     };
 
 

@@ -1,15 +1,15 @@
 import shortid from "shortid";
 
-function createTask(name) {
+function createTask(title) {
     let duration = "30m";
-    let newName = name;
-    if (parseDurationFromName(name)) {
-        duration = parseDurationFromName(name);
-        newName = name.replace(duration, "");
+    let newTitle = title;
+    if (parseDurationFromName(title)) {
+        duration = parseDurationFromName(title);
+        newTitle = title.replace(duration, "");
     }
     return {
         id: shortid.generate(),
-        name: newName,
+        title: newTitle,
         duration,
         done: false
     }

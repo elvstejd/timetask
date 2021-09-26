@@ -109,7 +109,8 @@ function Task(props) { // index, id, name: title, duration
     const editSpanRef = useRef(); /* HAVE TO CONFIGURE THESE REFS */
     const durationSpanRef = useRef();
 
-    function onTaskDelete() {
+    function onTaskDelete(e) {
+        e.stopPropagation();
         deleteTask(props.index, props.currentTask.id);
     }
 
@@ -118,7 +119,7 @@ function Task(props) { // index, id, name: title, duration
             const value = e.target.innerText.trim();
 
             if (value) {
-                const titleIsDifferent = value !== props.currentTask.name;
+                const titleIsDifferent = value !== props.currentTask.title;
                 if (titleIsDifferent) {
                     updateTaskTitle(props.currentTask.id, value);
                     console.log('value changed', value);
@@ -136,7 +137,7 @@ function Task(props) { // index, id, name: title, duration
         const value = e.target.innerText.trim();
 
         if (value) {
-            const titleIsDifferent = value !== props.currentTask.name;
+            const titleIsDifferent = value !== props.currentTask.title;
             if (titleIsDifferent) {
                 updateTaskTitle(props.currentTask.id, value);
                 console.log('value changed', value);
@@ -147,7 +148,8 @@ function Task(props) { // index, id, name: title, duration
         setIsEditing(false);
     };
 
-    function handleEditClick() {
+    function handleEditClick(e) {
+        e.stopPropagation();
         setIsEditing(true);
     };
 
@@ -212,14 +214,18 @@ function Task(props) { // index, id, name: title, duration
     // }
 
     function handleTaskSelect(e) {
-        try { // TODO: use the props.currentTask.done property instead
-            if (e.currentTarget.className.includes('task') &&
-                !e.currentTarget.className.includes('done')) {
-                loadTask(props.currentTask);
-            }
-        } catch (e) {
+        // try { // TODO: use the props.currentTask.done property instead
+        //     if (e.currentTarget.className.includes('task') &&
+        //         !e.currentTarget.className.includes('done')) {
+        //         loadTask(props.currentTask);
+        //     }
+        // } catch (e) {
 
-        }
+        // }
+
+        if (props.currentTask.done) return;
+        loadTask(props.currentTask);
+        console.log("task load", props.currentTask);
     }
 
     return (
@@ -236,9 +242,9 @@ function Task(props) { // index, id, name: title, duration
 
                     <TaskContainer onClick={handleTaskSelect} autoCursor={countdownIsRunning || isEditing || props.currentTask.done}>
                         {isEditing ? (
-                            <TitleInput onBlur={handleTaskFocusOut} onKeyDown={handleKeyPress} ref={editSpanRef} contentEditable suppressContentEditableWarning>{props.currentTask.name}</TitleInput>
+                            <TitleInput onBlur={handleTaskFocusOut} onKeyDown={handleKeyPress} ref={editSpanRef} contentEditable suppressContentEditableWarning>{props.currentTask.title}</TitleInput>
                         ) : (
-                            <TaskTitle crossOut={props.currentTask.done}>{props.currentTask.name}</TaskTitle>
+                            <TaskTitle crossOut={props.currentTask.done}>{props.currentTask.title}</TaskTitle>
                         )}
 
                         <div>
