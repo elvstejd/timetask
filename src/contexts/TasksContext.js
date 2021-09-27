@@ -1,5 +1,6 @@
 import { useState, createContext, useContext } from 'react';
-import { createTask, durationToMiliseconds } from '../utils/helperFunctions';
+import { createTask, durationToMiliseconds } from '../utils/helpers';
+import { useCountdown } from './countdownContext';
 
 const TasksContext = createContext();
 
@@ -11,10 +12,7 @@ function TasksProvider({ children }) {
     const [tasks, setTasks] = useState({});
     const [taskOrder, setTaskOrder] = useState([]);
     const [loadedTask, setLoadedTask] = useState({}); // { title, id }
-
-    /* countdown related state */
-    const [date, setDate] = useState();
-    const [countdownIsRunning, setCountdownIsRunning] = useState(false);
+    const { countdownIsRunning, setTimeInMs } = useCountdown()
 
     function addNewTask(title) {
         const newTask = createTask(title);
@@ -48,20 +46,13 @@ function TasksProvider({ children }) {
 
     function loadTask(task) {
         if (!countdownIsRunning) {
-            const miliseconds = durationToMiliseconds(task.duration);
             setLoadedTask({ title: task.title, id: task.id });
-            setDate(Date.now() + miliseconds);
+            setTimeInMs(durationToMiliseconds(task.duration));
         }
     }
 
     function clearLoadedTask() {
         setLoadedTask({});
-        setDate(Date.now());
-    };
-
-    /* COUNTDOWN METHOD */
-    function extendTime(ms) {
-        setDate(Date.now() + 5000);
     };
 
 
@@ -105,10 +96,7 @@ function TasksProvider({ children }) {
         updateTaskDuration,
         clearCompletedTasks,
         clearLoadedTask,
-        setCountdownIsRunning,
         countdownIsRunning,
-        extendTime,
-        date
     }
 
     return (
