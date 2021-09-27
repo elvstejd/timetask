@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { GrDrag } from 'react-icons/gr';
 import { BiRename, BiTrash } from 'react-icons/bi';
-import { isValidDuration } from '../utils/helperFunctions';
+import { isValidDuration } from '../utils/helpers';
 import { useTasks } from '../contexts/TasksContext';
 import styled from 'styled-components';
 
@@ -224,7 +224,7 @@ function Task(props) { // index, id, name: title, duration
             draggableId={props.currentTask.id}
             index={props.index}
         >
-            {(provided,) => (
+            {(provided) => (
                 <OutsideTaskContainer
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -239,7 +239,7 @@ function Task(props) { // index, id, name: title, duration
                         )}
 
                         <div>
-                            <EditButtonsContainer hide={props.currentTask.done} id="modify-btns">
+                            <EditButtonsContainer hide={props.currentTask.done}>
                                 <EditButton onClick={handleEditClick} title="Rename">
                                     <BiRename />
                                 </EditButton>
