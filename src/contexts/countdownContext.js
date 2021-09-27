@@ -40,6 +40,7 @@ function CountdownProvider({ children }) {
         }
 
         return () => clearInterval(interval.current);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status]);
 
     // when currentTime or targetTime change, update msDifference
