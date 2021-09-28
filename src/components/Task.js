@@ -47,6 +47,11 @@ const DurationInput = styled.span`
         border: 1.5px dashed var(--gray-50);
         cursor: text;
     }
+
+    &:focus {
+        border: 1.5px dashed var(--gray-50);
+        cursor: text;
+    }
 `;
 
 const EditButtonsContainer = styled.div`
@@ -106,7 +111,7 @@ function Task(props) { // index, id, name: title, duration
     const [isEditing, setIsEditing] = useState(false);
     const { deleteTask, updateTaskTitle, updateTaskDuration, loadTask, countdownIsRunning } = useTasks();
 
-    const editSpanRef = useRef(); /* HAVE TO CONFIGURE THESE REFS */
+    const editSpanRef = useRef();
     const durationSpanRef = useRef();
 
     function onTaskDelete(e) {
@@ -153,7 +158,7 @@ function Task(props) { // index, id, name: title, duration
         setIsEditing(true);
     };
 
-    function handleKeyDown(e) {
+    function handleDurationKeyDown(e) {
         const duration = e.target.innerText.trim();
 
         if (duration.length >= 5 && e.key !== "Backspace") {
@@ -161,36 +166,33 @@ function Task(props) { // index, id, name: title, duration
         }
 
         if (e.key === 'Enter') {
-            if (duration && duration !== props.currentTask.duration) {
-                // console.log("isValidDuration", isValidDuration(duration));
-                if (isValidDuration(duration)) {
-                    updateTaskDuration(duration, props.currentTask.id);
-                    durationSpanRef.current.blur(); /* FIX */
-                } else {
-                    durationSpanRef.current.blur(); /* FIX */
-                    e.target.innerText = props.currentTask.duration;
-                    console.log("Please enter a valid duration next time");
-                }
+            e.preventDefault();
+            if (!duration || duration === props.currentTask.duration) return;
+
+            if (isValidDuration(duration)) {
+                updateTaskDuration(duration, props.currentTask.id);
+            } else {
+                e.target.innerText = props.currentTask.duration;
+                console.log("Please enter a valid duration next time");
             }
-            if (e.preventDefault) e.preventDefault();
+
+            durationSpanRef.current.blur();
         }
     };
 
     function handleDurationFocusOut(e) {
-        // const duration = e.target.innerText.trim();
+        const duration = e.target.innerText.trim();
+        if (!duration || duration === props.currentTask.duration) return;
 
-        // if (duration && duration !== this.props.task.duration) {
-        //     if (isValidDuration(duration)) {
-        //         updateTaskDuration(duration, props.currentTask.id);
-        //         durationSpanRef.current.blur(); /* FIX */
-        //     } else {
-        //         durationSpanRef.current.blur(); /* FIX */
-        //         e.target.innerText = props.currentTask.duration;
-        //         console.log("Please enter a valid duration next time");
-        //     }
-        // }
-        // e.target.innerText = props.currentTask.duration;
+        if (isValidDuration(duration)) {
+            updateTaskDuration(duration, props.currentTask.id);
+        } else {
+            e.target.innerText = props.currentTask.duration;
+            console.log("Please enter a valid duration next time");
+        }
 
+        durationSpanRef.current.blur();
+        e.target.innerText = props.currentTask.duration;
     };
 
     /* I DONT REMEMBER WHAT THIS DID */
@@ -251,7 +253,8 @@ function Task(props) { // index, id, name: title, duration
                             <DurationInput
                                 contentEditable
                                 suppressContentEditableWarning
-                                onKeyDown={handleKeyDown}
+                                onClick={e => e.stopPropagation()}
+                                onKeyDown={handleDurationKeyDown}
                                 onBlur={handleDurationFocusOut}
                                 ref={durationSpanRef}
                             >
