@@ -1,7 +1,11 @@
+import { useState, useEffect } from 'react';
 import { BiSpreadsheet, BiTrendingUp, BiStopwatch } from 'react-icons/bi';
 import styled from 'styled-components';
 import { CardTitle } from '../styles/shared/CardTitle';
 import { Card } from '../styles/shared/Card';
+import { useTasks } from '../contexts/TasksContext';
+import { millisecondsToHours, millisecondsToMinutes } from '../utils/countdownHelpers';
+import { durationToMiliseconds } from '../utils/helpers';
 
 const BigSquareIcon = styled.div`
     display: flex;
@@ -43,6 +47,47 @@ const Spacer = styled.div`
 
 
 function Overview() {
+    const [hours, setHour] = useState(0);
+    const [minutes, setMinute] = useState(0);
+
+    const { tasks } = useTasks();
+
+    useEffect(() => {
+        calculateTimeLeft();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tasks]);
+
+    function calculateTimeLeft() {
+        const taskArray = Object.values(tasks);
+        if (taskArray.length === 0) {
+            setHour(0);
+            setMinute(0);
+        };
+
+        const totalDurationInMs = taskArray.reduce((prevTask, currentTask, index) => {
+            if (index === 0) {
+                return durationToMiliseconds(prevTask.duration) + durationToMiliseconds(currentTask.duration);
+            }
+            return prevTask + durationToMiliseconds(currentTask.duration);
+        }, { duration: '0m' });
+
+        setHour(millisecondsToHours(totalDurationInMs))
+        setMinute(millisecondsToMinutes(totalDurationInMs))
+    }
+
+    function getTimeLeftText() {
+        let timeLeftString = '';
+
+        if (hours === 1) timeLeftString += '1 hour ';
+        if (hours > 1) timeLeftString += hours + ' hours ';
+        if (minutes === 1) timeLeftString += '1 minute';
+        if (minutes > 1) timeLeftString += minutes + ' minutes ';
+        if (!timeLeftString) return '--';
+
+        return timeLeftString;
+    }
+
+
     return (
         <div>
 
@@ -69,7 +114,9 @@ function Overview() {
                     </BigSquareIcon>
                     <InfoTextContainer>
                         <InfoLabel>Time left</InfoLabel>
-                        <InfoText>00 hours 00 minutes</InfoText>
+                        <InfoText>
+                            {getTimeLeftText()}
+                        </InfoText>
                     </InfoTextContainer>
                 </InfoItemContainer>
             </Card>
