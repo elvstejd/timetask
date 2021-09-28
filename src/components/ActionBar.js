@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import { BiArchive, BiDice5 } from 'react-icons/bi';
 import styled from 'styled-components';
 import { useTasks } from '../contexts/TasksContext';
+import { getRandomIndexForArrayOfLength } from '../utils/helpers';
 
 const ActionBarContainer = styled.div`
     display: flex;
@@ -26,7 +28,21 @@ const ActionButton = styled.button`
 `;
 
 function ActionBar() {
-    const { clearCompletedTasks } = useTasks();
+    const { clearCompletedTasks, tasks, loadTask } = useTasks();
+
+    const previousRandomIndex = useRef();
+
+    function pickRandomTask() {
+        const taskArray = Object.values(tasks);
+        let randomIndex = getRandomIndexForArrayOfLength(taskArray.length);
+
+        while (previousRandomIndex.current === randomIndex) {
+            randomIndex = getRandomIndexForArrayOfLength(taskArray.length);
+        }
+
+        loadTask(taskArray[randomIndex]);
+        previousRandomIndex.current = randomIndex;
+    }
 
     return (
         <ActionBarContainer>
@@ -37,7 +53,7 @@ function ActionBar() {
                 </ActionButton>
             </div>
             <div>
-                <ActionButton>
+                <ActionButton onClick={() => pickRandomTask()}>
                     <BiDice5 />
                     <span>Pick random</span>
                 </ActionButton>

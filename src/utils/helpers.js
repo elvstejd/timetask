@@ -50,4 +50,8 @@ function isValidDuration(duration) {
     return false;
 }
 
-export { createTask, durationToMiliseconds, isValidDuration };
+function getRandomIndexForArrayOfLength(arrayLength) {
+    return Math.floor(Math.random() * arrayLength);
+}
+
+export { createTask, durationToMiliseconds, isValidDuration, getRandomIndexForArrayOfLength };
