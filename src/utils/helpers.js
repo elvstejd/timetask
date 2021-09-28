@@ -54,4 +54,10 @@ function getRandomIndexForArrayOfLength(arrayLength) {
     return Math.floor(Math.random() * arrayLength);
 }
 
-export { createTask, durationToMiliseconds, isValidDuration, getRandomIndexForArrayOfLength };
+
+export {
+    createTask,
+    durationToMiliseconds,
+    isValidDuration,
+    getRandomIndexForArrayOfLength
+};
