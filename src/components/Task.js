@@ -24,6 +24,7 @@ const TaskContainer = styled.div`
 
 const TaskTitle = styled.div`
     color: ${props => props.crossOut ? 'var(--text-secondary)' : 'var(--text-primary)'};
+    text-decoration: ${props => props.crossOut ? 'line-through' : 'none'};
     font-weight: 600;
 `;
 
@@ -104,6 +105,11 @@ const OutsideTaskContainer = styled.div`
             opacity: 1;
         }
     }
+`;
+
+const ActionsContainer = styled.div`
+    opacity: ${props => props.hide ? 0 : 1};
+    z-index: ${props => props.hide ? -99 : 'auto'};
 `;
 
 
@@ -240,7 +246,7 @@ function Task(props) { // index, id, name: title, duration
                             <TaskTitle crossOut={props.currentTask.done}>{props.currentTask.title}</TaskTitle>
                         )}
 
-                        <div>
+                        <ActionsContainer hide={props.currentTask.done}>
                             <EditButtonsContainer hide={props.currentTask.done}>
                                 <EditButton onClick={handleEditClick} title="Rename">
                                     <BiRename />
@@ -260,7 +266,7 @@ function Task(props) { // index, id, name: title, duration
                             >
                                 {props.currentTask.duration}
                             </DurationInput>
-                        </div>
+                        </ActionsContainer>
                     </TaskContainer>
                 </OutsideTaskContainer>
             )}
