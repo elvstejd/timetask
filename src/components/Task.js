@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { GrDrag } from 'react-icons/gr';
 import { BiRename, BiTrash } from 'react-icons/bi';
@@ -120,6 +120,11 @@ function Task(props) { // index, id, name: title, duration
     const editSpanRef = useRef();
     const durationSpanRef = useRef();
 
+    useEffect(() => {
+        if (!isEditing) return;
+        cursorSelectTaskName();
+    }, [isEditing])
+
     function onTaskDelete(e) {
         e.stopPropagation();
         deleteTask(props.index, props.currentTask.id);
@@ -162,6 +167,7 @@ function Task(props) { // index, id, name: title, duration
     function handleEditClick(e) {
         e.stopPropagation();
         setIsEditing(true);
+        cursorSelectTaskName();
     };
 
     function handleDurationKeyDown(e) {
@@ -201,25 +207,24 @@ function Task(props) { // index, id, name: title, duration
         e.target.innerText = props.currentTask.duration;
     };
 
-    /* I DONT REMEMBER WHAT THIS DID */
-    // componentDidUpdate() { 
-    //     if (this.state.isEditing) {
-    //         const span = this.editSpan.current;
-    //         const range = document.createRange();
-    //         const selection = window.getSelection();
+    function cursorSelectTaskName() {
+        if (!editSpanRef.current) return;
 
-    //         try {
-    //             range.selectNodeContents(span.childNodes[0], span.innerText.length);
-    //             range.collapse(true);
+        const span = editSpanRef.current;
+        const range = document.createRange();
+        const selection = window.getSelection();
 
-    //             selection.removeAllRanges();
-    //             selection.addRange(range);
-    //             document.execCommand('selectAll', false, null);
-    //         } catch (e) {
+        try {
+            range.selectNodeContents(span.childNodes[0], span.innerText.length);
+            range.collapse(true);
 
-    //         }
-    //     }
-    // }
+            selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand('selectAll', false, null);
+        } catch {
+
+        }
+    }
 
     function handleTaskSelect() {
         if (props.currentTask.done) return;
