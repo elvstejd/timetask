@@ -35,6 +35,7 @@ function MainPage() {
             console.log(res.data);
             setFetchedTasks(res.data);
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
