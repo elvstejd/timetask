@@ -113,7 +113,7 @@ const ActionsContainer = styled.div`
 `;
 
 
-function Task(props) { // index, id, name: title, duration
+function Task(props) {
     const [isEditing, setIsEditing] = useState(false);
     const { deleteTask, updateTaskTitle, updateTaskDuration, loadTask, countdownIsRunning } = useTasks();
 
@@ -182,7 +182,7 @@ function Task(props) { // index, id, name: title, duration
             if (!duration || duration === props.currentTask.duration) return;
 
             if (isValidDuration(duration)) {
-                updateTaskDuration(duration, props.currentTask.id);
+                updateTaskDuration(props.currentTask.id, duration);
             } else {
                 e.target.innerText = props.currentTask.duration;
                 console.log("Please enter a valid duration next time");
@@ -197,7 +197,7 @@ function Task(props) { // index, id, name: title, duration
         if (!duration || duration === props.currentTask.duration) return;
 
         if (isValidDuration(duration)) {
-            updateTaskDuration(duration, props.currentTask.id);
+            updateTaskDuration(props.currentTask.id, duration);
         } else {
             e.target.innerText = props.currentTask.duration;
             console.log("Please enter a valid duration next time");
