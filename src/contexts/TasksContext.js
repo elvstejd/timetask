@@ -111,6 +111,7 @@ function TasksProvider({ children }) {
 
         setTasks(newTasksObject);
         setTaskOrder(newTaskOrder);
+        axios.delete(`http://localhost:5000/tasks`, { done: true });
     }
 
     function setFetchedTasks(taskArray) {
