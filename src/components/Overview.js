@@ -5,7 +5,7 @@ import { CardTitle } from '../styles/shared/CardTitle';
 import { Card } from '../styles/shared/Card';
 import { useTasks } from '../contexts/TasksContext';
 import { millisecondsToHours, millisecondsToMinutes } from '../utils/countdownHelpers';
-import { durationToMiliseconds } from '../utils/helpers';
+import { durationToMiliseconds, isToday } from '../utils/helpers';
 
 const BigSquareIcon = styled.div`
     display: flex;
@@ -49,13 +49,27 @@ const Spacer = styled.div`
 function Overview() {
     const [hours, setHour] = useState(0);
     const [minutes, setMinute] = useState(0);
+    const [completedToday, setCompletedToday] = useState(0);
 
     const { tasks } = useTasks();
 
     useEffect(() => {
         calculateTimeLeft();
+        calculateCompletedToday();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tasks]);
+
+    function calculateCompletedToday() {
+        const taskArray = Object.values(tasks);
+        let count = 0;
+
+        taskArray.forEach(task => {
+            if (task.done && isToday(task.completionDate)) count++;
+        });
+
+        setCompletedToday(count);
+    }
+
 
     function calculateTimeLeft() {
         const taskArray = Object.values(tasks);
@@ -103,7 +117,7 @@ function Overview() {
                         </BigSquareIcon>
                         <InfoTextContainer>
                             <InfoLabel>Completed today</InfoLabel>
-                            <InfoText>00 activities</InfoText>
+                            <InfoText>{completedToday} activities</InfoText>
                         </InfoTextContainer>
                     </InfoItemContainer>
                 </Spacer>

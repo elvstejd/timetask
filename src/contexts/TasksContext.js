@@ -66,9 +66,12 @@ function TasksProvider({ children }) {
 
     function markTaskDone(taskId) {
         const newTasksObject = Object.assign({}, tasks);
+        const today = new Date();
         newTasksObject[taskId].done = true;
+        newTasksObject[taskId].completionDate = today;
         setTasks(newTasksObject);
-        axios.patch(`http://localhost:5000/tasks/${taskId}`, { done: true, completedDate: new Date() });
+        axios.patch(`http://localhost:5000/tasks/${taskId}`, { done: true, completionDate: today });
+
     }
 
     function loadTask(task) {

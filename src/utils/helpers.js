@@ -11,7 +11,8 @@ function createTask(title) {
         id: shortid.generate(),
         title: newTitle,
         duration,
-        done: false
+        done: false,
+        completedDate: null
     }
 }
 
@@ -54,10 +55,21 @@ function getRandomIndexForArrayOfLength(arrayLength) {
     return Math.floor(Math.random() * arrayLength);
 }
 
+const isToday = (someDate) => {
+    // https://flaviocopes.com/how-to-determine-date-is-today-javascript/
+    if (!someDate) return;
+    const thatDate = new Date(someDate);
+    const today = new Date()
+    return thatDate.getDate() == today.getDate() &&
+        thatDate.getMonth() == today.getMonth() &&
+        thatDate.getFullYear() == today.getFullYear()
+}
+
 
 export {
     createTask,
     durationToMiliseconds,
     isValidDuration,
-    getRandomIndexForArrayOfLength
+    getRandomIndexForArrayOfLength,
+    isToday
 };
