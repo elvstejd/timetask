@@ -39,6 +39,7 @@ function Countdown() {
     }, [msDifference]);
 
     function handleDoneClick() {
+        if (!loadedTask.id) return;
         markTaskDone(loadedTask.id);
         clearLoadedTask();
         stop();
