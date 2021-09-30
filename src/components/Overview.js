@@ -72,7 +72,7 @@ function Overview() {
 
 
     function calculateTimeLeft() {
-        const taskArray = Object.values(tasks);
+        const taskArray = Object.values(tasks).filter(task => !task.done);
         if (taskArray.length === 0) {
             setHour(0);
             setMinute(0);
