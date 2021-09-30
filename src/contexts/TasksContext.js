@@ -1,6 +1,7 @@
 import { useState, createContext, useContext } from 'react';
 import { createTask, durationToMiliseconds } from '../utils/helpers';
 import { useCountdown } from './countdownContext';
+import axios from 'axios';
 
 const TasksContext = createContext();
 
@@ -12,15 +13,39 @@ function TasksProvider({ children }) {
     const [tasks, setTasks] = useState({});
     const [taskOrder, setTaskOrder] = useState([]);
     const [loadedTask, setLoadedTask] = useState({}); // { title, id }
-    const { countdownIsRunning, setTimeInMs } = useCountdown()
+    const { countdownIsRunning, setTimeInMs } = useCountdown();
+
+    // function addNewTask(title) {
+    //     const newTask = createTask(title);
+    //     const newTasksObject = Object.assign({}, tasks);
+    //     newTasksObject[newTask.id] = newTask;
+
+    //     setTasks(newTasksObject);
+    //     setTaskOrder(taskOrder.concat(newTask.id));
+    //     axios.post('http://localhost:5000/tasks', {
+    //         title: newTask.title,
+    //         duration: newTask.duration
+    //     }).then(res => {
+    //         const newId = res.data.id;
+    //         updateTaskId(newTask.id, newId);
+    //     });
+    // }
 
     function addNewTask(title) {
         const newTask = createTask(title);
         const newTasksObject = Object.assign({}, tasks);
-        newTasksObject[newTask.id] = newTask;
 
-        setTasks(newTasksObject);
-        setTaskOrder(taskOrder.concat(newTask.id));
+        axios.post('http://localhost:5000/tasks', {
+            title: newTask.title,
+            duration: newTask.duration
+        }).then(res => {
+            const newId = res.data.id;
+            newTask.id = newId;
+            console.log('log obj', newTask);
+            newTasksObject[newTask.id] = newTask;
+            setTasks(newTasksObject);
+            setTaskOrder(taskOrder.concat(newTask.id));
+        })
     }
 
     function updateTaskTitle(taskId, newTitle) {
@@ -28,20 +53,22 @@ function TasksProvider({ children }) {
         newTasksObject[taskId].title = newTitle;
 
         setTasks(newTasksObject);
+        axios.patch(`http://localhost:5000/tasks/${taskId}`, { title: newTitle });
     }
 
-    function updateTaskDuration(newDuration, taskId) {
+    function updateTaskDuration(taskId, newDuration) {
         const newTasksObject = Object.assign({}, tasks);
         newTasksObject[taskId].duration = newDuration;
 
         setTasks(newTasksObject);
+        axios.patch(`http://localhost:5000/tasks/${taskId}`, { duration: newDuration });
     }
 
     function markTaskDone(taskId) {
         const newTasksObject = Object.assign({}, tasks);
         newTasksObject[taskId].done = true;
-
         setTasks(newTasksObject);
+        axios.patch(`http://localhost:5000/tasks/${taskId}`, { done: true, completedDate: new Date() });
     }
 
     function loadTask(task) {
@@ -64,6 +91,7 @@ function TasksProvider({ children }) {
 
         setTasks(newTasksObject);
         setTaskOrder(newTaskOrder);
+        axios.delete(`http://localhost:5000/tasks/${taskId}`);
     }
 
     function clearCompletedTasks() {
@@ -76,6 +104,19 @@ function TasksProvider({ children }) {
                 return false;
             }
             return true;
+        });
+
+        setTasks(newTasksObject);
+        setTaskOrder(newTaskOrder);
+    }
+
+    function setFetchedTasks(taskArray) {
+        const newTasksObject = {};
+        const newTaskOrder = [];
+
+        taskArray.forEach(task => {
+            newTasksObject[task.id] = task;
+            newTaskOrder.push(task.id);
         });
 
         setTasks(newTasksObject);
@@ -97,6 +138,7 @@ function TasksProvider({ children }) {
         clearCompletedTasks,
         clearLoadedTask,
         countdownIsRunning,
+        setFetchedTasks
     }
 
     return (

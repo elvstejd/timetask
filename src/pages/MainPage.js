@@ -4,6 +4,9 @@ import Overview from '../components/Overview';
 import ActionBar from '../components/ActionBar';
 import Tasks from '../components/Tasks';
 import CurrentSession from '../components/CurrentSession';
+import { useTasks } from '../contexts/TasksContext';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const Main = styled.main`
     max-width: 80rem;
@@ -25,6 +28,15 @@ const RightSection = styled.div`
 `;
 
 function MainPage() {
+    const { setFetchedTasks } = useTasks();
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/tasks').then(res => {
+            console.log(res.data);
+            setFetchedTasks(res.data);
+        })
+    }, []);
+
     return (
         <div>
             <Header />
