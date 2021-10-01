@@ -28,7 +28,7 @@ function CurrentSession() {
             </CardTitle>
 
             <TimerCard>
-                <TaskTitle>{loadedTask.title ? loadedTask.title : "No task selected"}</TaskTitle>
+                <TaskTitle>{loadedTask.title ? loadedTask.title : "-- --"}</TaskTitle>
                 <Countdown />
             </TimerCard>
         </div>
