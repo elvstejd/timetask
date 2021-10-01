@@ -73,6 +73,7 @@ function Countdown() {
             countdownFinishSound.play();
             stop();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [countdownHasFinished]);
 
     function handleDoneClick() {
