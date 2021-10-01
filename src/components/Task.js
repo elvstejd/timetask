@@ -23,9 +23,9 @@ const TaskContainer = styled.div`
 `;
 
 const TaskTitle = styled.div`
-    color: ${props => props.crossOut ? 'var(--text-secondary)' : 'var(--text-primary)'};
-    text-decoration: ${props => props.crossOut ? 'line-through' : 'none'};
-    font-weight: 600;
+    color: ${props => props.crossOut ? 'var(--text-tertiary)' : 'var(--text-primary)'};
+    text-decoration: ${props => props.crossOut ? 'line-through var(--text-secondary)' : 'none'};
+    font-weight: 500;
 `;
 
 const TitleInput = styled.span`

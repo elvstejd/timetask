@@ -13,10 +13,11 @@ const ActionBarContainer = styled.div`
 const ActionButton = styled.button`
     border: none;
     font-family: var(--font-family-sans);
-    color: var(--gray-40);
+    color: var(--gray-30);
     display: flex;
     align-items: center;
     cursor: pointer;
+    font-size: var(--sm);
 
     span {
         margin-left: 0.15rem;

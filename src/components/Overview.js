@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BiSpreadsheet, BiTrendingUp, BiStopwatch } from 'react-icons/bi';
+import { BiTrendingUp, BiStopwatch } from 'react-icons/bi';
 import styled from 'styled-components';
 import { CardTitle } from '../styles/shared/CardTitle';
 import { Card } from '../styles/shared/Card';
@@ -13,8 +13,14 @@ const BigSquareIcon = styled.div`
     align-items: center;
     width: 3rem;
     height: 3rem;
-    background-color: var(--brand-primary);
+    background-color: var(--primary-400);
     border-radius: var(--border-radius-md);
+
+    svg {
+        color: var(--primary-800);
+        width: var(--xl);
+        height: var(--xl);
+    }
 `;
 
 const InfoItemContainer = styled.div`
@@ -31,12 +37,12 @@ const InfoTextContainer = styled.div`
 const InfoLabel = styled.p`
     font-weight: 500;
     font-size: var(--sm);
-    color: var(--gray-60);
+    color: var(--text-tertiary);
     margin-bottom: 0.2rem;
 `;
 
 const InfoText = styled.p`
-    font-weight: 700;
+    font-weight: 600;
     font-size: var(--sm);
     color: var(--text-primary);
 `;
@@ -96,7 +102,7 @@ function Overview() {
         if (hours > 1) timeLeftString += hours + ' hours ';
         if (minutes === 1) timeLeftString += '1 minute';
         if (minutes > 1) timeLeftString += minutes + ' minutes ';
-        if (!timeLeftString) return '--';
+        if (!timeLeftString) return 'Done';
 
         return timeLeftString;
     }
@@ -104,9 +110,7 @@ function Overview() {
 
     return (
         <div>
-
             <CardTitle>
-                <BiSpreadsheet />
                 <h3>Overview</h3>
             </CardTitle>
             <Card>
@@ -117,7 +121,7 @@ function Overview() {
                         </BigSquareIcon>
                         <InfoTextContainer>
                             <InfoLabel>Completed today</InfoLabel>
-                            <InfoText>{completedToday} activities</InfoText>
+                            <InfoText>{completedToday} {completedToday === 1 ? 'activity' : 'activities'}</InfoText>
                         </InfoTextContainer>
                     </InfoItemContainer>
                 </Spacer>

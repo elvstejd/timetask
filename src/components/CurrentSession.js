@@ -1,12 +1,10 @@
-// import { FaBullseye } from 'react-icons/fa';
-import { BiTargetLock } from 'react-icons/bi';
-// import doneSound from '../sounds/task_done.mp3';
-// import countdownOverSound from '../sounds/alarm_beep_3.mp3';
 import Countdown from './Countdown';
 import { useTasks } from '../contexts/TasksContext';
 import { Card } from '../styles/shared/Card';
 import { CardTitle } from '../styles/shared/CardTitle';
 import styled from 'styled-components';
+// import doneSound from '../sounds/task_done.mp3';
+// import countdownOverSound from '../sounds/alarm_beep_3.mp3';
 
 
 const TimerCard = styled(Card)`
@@ -31,7 +29,6 @@ function CurrentSession() {
     return (
         <div>
             <CardTitle>
-                <BiTargetLock />
                 <h3>Current Session</h3>
             </CardTitle>
 

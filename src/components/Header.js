@@ -1,13 +1,9 @@
 import styled from 'styled-components';
 
-const app = {
-    // navigation: ['Home', 'Stats', 'Settings'],
-    navigation: ['Home', 'Settings'],
-}
 
 const HeaderContainer = styled.header`
     display: flex;
-    background: var(--brand-primary-dark);
+    background: var(--primary-500);
     justify-content: space-between;
     align-items: center;
     height: 4rem;
@@ -31,15 +27,15 @@ function Header() {
     return (
         <HeaderContainer>
             <div>
-                BRAND
+                TimeTask
             </div>
             <div id="links">
                 <StyledUl>
-                    {app.navigation.map(link => <StyledLi key={link}>{link}</StyledLi>)}
+                    <StyledLi>Home</StyledLi>
                 </StyledUl>
             </div>
             <div id="user">
-                <p>Elvis Tejeda</p>
+                <p>Hi, Guest</p>
             </div>
         </HeaderContainer>
     );

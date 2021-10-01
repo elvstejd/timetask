@@ -21,13 +21,13 @@ const InputSpanContainer = styled.div`
     span {
         width: 100%;
         color: var(--text-primary);
-        font-weight: 600;
+        font-weight: 500;
         outline: none;
     }
 `;
 
 const Container = styled.div`
-    background-color: var(--gray-94);
+    background-color: var(--gray-96);
     border: none;
     padding: 1rem 1.3rem;
     border-radius: 7px;

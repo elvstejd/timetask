@@ -4,23 +4,42 @@ import { useCountdown } from "../contexts/countdownContext";
 import { useTasks } from "../contexts/TasksContext";
 import { millisecondsToHours, millisecondsToMinutes, millisecondsToSeconds, pad } from '../utils/countdownHelpers';
 
+const Container = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
 
-const CountdownWrapper = styled.span`
+const CountdownWrapper = styled.p`
     font-size: 3rem;
+    letter-spacing: -2px;
     margin-bottom: .6rem;
+    color: var(--text-primary);
+    font-family: 'Roboto Mono', monospace;
+
+    span {
+        white-space: nowrap;
+        display: inline-block;
+    }
 `;
 
 const ButtonsContainer = styled.div`
     display: flex;
-    justify-content: space-between;
+    margin-top: .5rem;
 `;
 
 const ControlButton = styled.button`
     font-family: var(--font-family-sans);
     border: none;
-    padding: .5rem .7rem;
-    border-radius: var(--border-radius-md);  
-    display: ${props => props.hide ? 'none' : 'block'} 
+    padding: .5rem;
+    border-radius: var(--border-radius-sm);  
+    display: ${props => props.hide ? 'none' : 'block'};
+    cursor: pointer;
+    background-color: var(--secondary-400);
+    color: var(--gray-92);
+    box-shadow: var(--shadow-sm);
+    flex-grow: 1;
 `;
 
 function Countdown() {
@@ -46,9 +65,11 @@ function Countdown() {
     }
 
     return (
-        <div>
+        <Container>
             <CountdownWrapper>
-                {hour}:{pad(minute)}:{pad(second)}
+                <span>{hour}:</span>
+                <span>{pad(minute)}:</span>
+                <span>{pad(second)}</span>
             </CountdownWrapper>
             <ButtonsContainer>
                 {countdownIsRunning ? (
@@ -56,11 +77,11 @@ function Countdown() {
                 ) : (
                     <ControlButton onClick={() => start()}>Start</ControlButton>
                 )}
-                <ControlButton onClick={handleDoneClick}>
+                <ControlButton onClick={handleDoneClick} style={{ marginLeft: '1rem' }}>
                     Done
                 </ControlButton>
             </ButtonsContainer>
-        </div>
+        </Container>
     );
 }
 

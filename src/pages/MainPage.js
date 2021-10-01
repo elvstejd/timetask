@@ -1,11 +1,10 @@
-import Header from '../components/Header';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import Overview from '../components/Overview';
 import ActionBar from '../components/ActionBar';
 import Tasks from '../components/Tasks';
 import CurrentSession from '../components/CurrentSession';
 import { useTasks } from '../contexts/TasksContext';
-import { useEffect } from 'react';
 import axios from 'axios';
 
 const Main = styled.main`
@@ -40,7 +39,6 @@ function MainPage() {
 
     return (
         <div>
-            <Header />
             <Main>
                 <LeftSection>
                     <Overview />
