@@ -3,6 +3,8 @@ import { createTask, durationToMiliseconds } from '../utils/helpers';
 import { useCountdown } from './countdownContext';
 import axios from 'axios';
 
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+
 const TasksContext = createContext();
 
 export function useTasks() {
@@ -35,7 +37,7 @@ function TasksProvider({ children }) {
         const newTask = createTask(title);
         const newTasksObject = Object.assign({}, tasks);
 
-        axios.post('http://localhost:5000/tasks', {
+        axios.post('/tasks', {
             title: newTask.title,
             duration: newTask.duration
         }).then(res => {
@@ -53,7 +55,7 @@ function TasksProvider({ children }) {
         newTasksObject[taskId].title = newTitle;
 
         setTasks(newTasksObject);
-        axios.patch(`http://localhost:5000/tasks/${taskId}`, { title: newTitle });
+        axios.patch(`/tasks/${taskId}`, { title: newTitle });
     }
 
     function updateTaskDuration(taskId, newDuration) {
@@ -61,7 +63,7 @@ function TasksProvider({ children }) {
         newTasksObject[taskId].duration = newDuration;
 
         setTasks(newTasksObject);
-        axios.patch(`http://localhost:5000/tasks/${taskId}`, { duration: newDuration });
+        axios.patch(`/tasks/${taskId}`, { duration: newDuration });
     }
 
     function markTaskDone(taskId) {
@@ -71,7 +73,7 @@ function TasksProvider({ children }) {
         newTasksObject[taskId].done = true;
         newTasksObject[taskId].completionDate = today;
         setTasks(newTasksObject);
-        axios.patch(`http://localhost:5000/tasks/${taskId}`, { done: true, completionDate: today });
+        axios.patch(`/tasks/${taskId}`, { done: true, completionDate: today });
 
     }
 
@@ -95,7 +97,7 @@ function TasksProvider({ children }) {
 
         setTasks(newTasksObject);
         setTaskOrder(newTaskOrder);
-        axios.delete(`http://localhost:5000/tasks/${taskId}`);
+        axios.delete(`/tasks/${taskId}`);
     }
 
     function clearCompletedTasks() {
@@ -112,7 +114,7 @@ function TasksProvider({ children }) {
 
         setTasks(newTasksObject);
         setTaskOrder(newTaskOrder);
-        axios.delete(`http://localhost:5000/tasks`, { data: { done: true } });
+        axios.delete(`/tasks`, { data: { done: true } });
     }
 
     function setFetchedTasks(taskArray) {

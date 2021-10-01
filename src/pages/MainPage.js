@@ -6,6 +6,8 @@ import Tasks from '../components/Tasks';
 import CurrentSession from '../components/CurrentSession';
 import { useTasks } from '../contexts/TasksContext';
 import axios from 'axios';
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+
 
 const Main = styled.main`
     max-width: 80rem;
@@ -30,7 +32,7 @@ function MainPage() {
     const { setFetchedTasks } = useTasks();
 
     useEffect(() => {
-        axios.get('http://localhost:5000/tasks').then(res => {
+        axios.get('/tasks').then(res => {
             console.log(res.data);
             setFetchedTasks(res.data);
         })
