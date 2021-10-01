@@ -15,24 +15,3 @@ body {
 #root {
   min-height: 100vh;
 }
-
-#notice {
-  justify-content: center;
-  align-items: center;
-  display: none;
-  min-height: 100vh;
-}
-
-#unsupported-text {
-  max-width: 25rem;
-}
-
-@media screen and (max-width: 1255px) {
-  #root {
-    display: none;
-  }
-
-  #notice {
-    display: flex;
-  }
-}
