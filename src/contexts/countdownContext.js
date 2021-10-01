@@ -88,6 +88,7 @@ function CountdownProvider({ children }) {
 
     const value = {
         countdownIsRunning: status === 'started' || status === 'startedFromStoppedOrInit',
+        countdownHasFinished: status === 'finished',
         msDifference,
         start,
         pause,

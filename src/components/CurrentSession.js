@@ -3,8 +3,6 @@ import { useTasks } from '../contexts/TasksContext';
 import { Card } from '../styles/shared/Card';
 import { CardTitle } from '../styles/shared/CardTitle';
 import styled from 'styled-components';
-// import doneSound from '../sounds/task_done.mp3';
-// import countdownOverSound from '../sounds/alarm_beep_3.mp3';
 
 
 const TimerCard = styled(Card)`
@@ -22,9 +20,6 @@ const TaskTitle = styled.p`
 
 function CurrentSession() {
     const { loadedTask } = useTasks();
-
-    // const doneSound = new Audio(doneSound);
-    // const countdownFinishSound = new Audio(countdownOverSound);
 
     return (
         <div>

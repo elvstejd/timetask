@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useCountdown } from "../contexts/countdownContext";
 import { useTasks } from "../contexts/TasksContext";
 import { millisecondsToHours, millisecondsToMinutes, millisecondsToSeconds, pad } from '../utils/countdownHelpers';
+import doneSound from '../sounds/task_done.mp3';
+import finishSound from '../sounds/alarm_beep_3.mp3';
 
 const Container = styled.div`
     width: 100%;
@@ -47,8 +49,11 @@ function Countdown() {
     const [minute, setMinute] = useState(0);
     const [second, setSecond] = useState(0);
 
-    const { msDifference, start, stop, pause, countdownIsRunning } = useCountdown();
+    const { msDifference, start, stop, pause, countdownIsRunning, countdownHasFinished } = useCountdown();
     const { clearLoadedTask, loadedTask, markTaskDone } = useTasks();
+
+    const taskDoneSound = new Audio(doneSound);
+    const countdownFinishSound = new Audio(finishSound);
 
     // when msDifference changes, update displayed hh:mm:ss
     useEffect(() => {
@@ -57,8 +62,17 @@ function Countdown() {
         setSecond(millisecondsToSeconds(msDifference));
     }, [msDifference]);
 
+    useEffect(() => {
+        if (countdownHasFinished) {
+            console.log('done');
+            countdownFinishSound.play();
+            stop();
+        }
+    }, [countdownHasFinished]);
+
     function handleDoneClick() {
         if (!loadedTask.id) return;
+        taskDoneSound.play();
         markTaskDone(loadedTask.id);
         clearLoadedTask();
         stop();
