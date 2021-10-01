@@ -142,7 +142,8 @@ function TasksProvider({ children }) {
         clearCompletedTasks,
         clearLoadedTask,
         countdownIsRunning,
-        setFetchedTasks
+        setFetchedTasks,
+        thereIsALoadedTask: !(Object.keys(loadedTask).length === 0 && loadedTask.constructor === Object)
     }
 
     return (

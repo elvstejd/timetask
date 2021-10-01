@@ -36,12 +36,17 @@ const ControlButton = styled.button`
     border: none;
     padding: .5rem;
     border-radius: var(--border-radius-sm);  
-    display: ${props => props.hide ? 'none' : 'block'};
     cursor: pointer;
     background-color: var(--secondary-400);
     color: var(--gray-92);
     box-shadow: var(--shadow-sm);
     flex-grow: 1;
+
+    &:disabled {
+        box-shadow: none;
+        background-color: var(--secondary-200);
+        cursor: default;
+    }
 `;
 
 function Countdown() {
@@ -50,7 +55,7 @@ function Countdown() {
     const [second, setSecond] = useState(0);
 
     const { msDifference, start, stop, pause, countdownIsRunning, countdownHasFinished } = useCountdown();
-    const { clearLoadedTask, loadedTask, markTaskDone } = useTasks();
+    const { clearLoadedTask, loadedTask, markTaskDone, thereIsALoadedTask } = useTasks();
 
     const taskDoneSound = new Audio(doneSound);
     const countdownFinishSound = new Audio(finishSound);
@@ -71,7 +76,7 @@ function Countdown() {
     }, [countdownHasFinished]);
 
     function handleDoneClick() {
-        if (!loadedTask.id) return;
+        if (!thereIsALoadedTask) return;
         taskDoneSound.play();
         markTaskDone(loadedTask.id);
         clearLoadedTask();
@@ -89,9 +94,9 @@ function Countdown() {
                 {countdownIsRunning ? (
                     <ControlButton onClick={() => pause()}>Pause</ControlButton>
                 ) : (
-                    <ControlButton onClick={() => start()}>Start</ControlButton>
+                    <ControlButton disabled={!thereIsALoadedTask} onClick={() => start()}>Start</ControlButton>
                 )}
-                <ControlButton onClick={handleDoneClick} style={{ marginLeft: '1rem' }}>
+                <ControlButton onClick={handleDoneClick} disabled={!thereIsALoadedTask} style={{ marginLeft: '1rem' }}>
                     Done
                 </ControlButton>
             </ButtonsContainer>
