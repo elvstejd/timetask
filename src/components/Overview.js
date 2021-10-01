@@ -60,6 +60,7 @@ function Overview() {
     const { tasks } = useTasks();
 
     useEffect(() => {
+        if (!tasks) return;
         calculateTimeLeft();
         calculateCompletedToday();
         // eslint-disable-next-line react-hooks/exhaustive-deps

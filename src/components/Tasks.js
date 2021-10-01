@@ -2,16 +2,10 @@ import { useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useTasks } from '../contexts/TasksContext';
 import Task from './Task';
+import Spinner from './Spinner';
 import TaskInput from './TaskInput';
 import styled from 'styled-components';
-
-const TaskContainer = styled.div`
-    width: 40rem;
-    background-color: var(--gray-90);
-    padding: 1rem 1rem 0 .1rem;
-    overflow: auto;
-    border-radius: var(--border-radius-lg);
-`;
+import { TaskContainer } from '../styles/shared/TaskContainer';
 
 const NewTaskButton = styled.div`
     padding: 1rem 1.3rem;
@@ -55,6 +49,7 @@ function Tasks() {
         setIsAddingTask(false);
     }
 
+    if (!tasks) return <Spinner />;
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>

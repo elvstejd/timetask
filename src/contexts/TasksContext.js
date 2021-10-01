@@ -10,7 +10,7 @@ export function useTasks() {
 }
 
 function TasksProvider({ children }) {
-    const [tasks, setTasks] = useState({});
+    const [tasks, setTasks] = useState(null);
     const [taskOrder, setTaskOrder] = useState([]);
     const [loadedTask, setLoadedTask] = useState({}); // { title, id }
     const { countdownIsRunning, setTimeInMs } = useCountdown();
