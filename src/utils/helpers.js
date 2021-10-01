@@ -60,9 +60,12 @@ const isToday = (someDate) => {
     if (!someDate) return;
     const thatDate = new Date(someDate);
     const today = new Date()
+    // eslint-disable-next-line eqeqeq
     return thatDate.getDate() == today.getDate() &&
+        // eslint-disable-next-line eqeqeq
         thatDate.getMonth() == today.getMonth() &&
-        thatDate.getFullYear() == today.getFullYear()
+        // eslint-disable-next-line eqeqeq
+        thatDate.getFullYear() == today.getFullYear();
 }
 
 
