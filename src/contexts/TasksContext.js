@@ -65,6 +65,7 @@ function TasksProvider({ children }) {
     }
 
     function markTaskDone(taskId) {
+        if (!tasks[taskId]) return;
         const newTasksObject = Object.assign({}, tasks);
         const today = new Date();
         newTasksObject[taskId].done = true;
