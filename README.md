@@ -13,10 +13,14 @@ Todo app + timer.
   
 ## Features
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
+- Time your tasks
+- See how many tasks you've completed in the day
+- Get a sound notificacion when the timer ends
+
+## Roadmap
+
+- Make the website responsive
+- Have individual users
 
   
 ## Getting started
