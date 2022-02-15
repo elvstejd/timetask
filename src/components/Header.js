@@ -11,6 +11,12 @@ const HeaderContainer = styled.header`
     padding: 0 2rem;
     color: var(--gray-98);
     font-weight: 600;
+
+    @media screen and (max-width: 600px) {
+        #links {
+            display: none;
+        }
+    }
 `;
 
 const StyledUl = styled.ul`

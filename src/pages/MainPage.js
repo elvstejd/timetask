@@ -11,21 +11,58 @@ axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const Main = styled.main`
     max-width: 80rem;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    row-gap: 2rem;
+    margin-bottom: 3rem;
+    
+    @media (min-width: 1310px) {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    
+    @media (min-width: 600px) {
+        column-gap: 2rem;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
 `;
 
 const LeftSection = styled.div`
-    padding-right: 1rem;
+    grid-row: 2;
+    
+    @media (min-width: 600px) {
+        grid-row: 1;
+    }
+    
+    @media (min-width: 1310px) {
+        padding-right: 1rem;
+    }
 `;
 
 const CenterSection = styled.div`
-    
+    grid-column: span 2;
+
+    @media (min-width: 600px) and (max-width: 1310px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 `;
 
 const RightSection = styled.div`
-    padding-left: 1rem;
+    grid-row: 1;
+    
+    @media (min-width: 600px) {
+        grid-column: 2;
+    }
+    
+    @media (min-width: 1310px) {
+        padding-left: 1rem;
+    }
 `;
 
 function MainPage() {
@@ -47,8 +84,10 @@ function MainPage() {
                 </LeftSection>
 
                 <CenterSection>
-                    <ActionBar />
-                    <Tasks />
+                    <div>
+                        <ActionBar />
+                        <Tasks />
+                    </div>
                 </CenterSection>
 
                 <RightSection>

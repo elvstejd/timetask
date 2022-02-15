@@ -7,4 +7,12 @@ export const Card = styled.div`
     border-radius: var(--border-radius-xl);
     box-shadow: var(--shadow-sm);
     padding: 2rem;
+
+    @media (max-width: 1310px) {
+        width: auto;
+        height: 88.5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 `;
