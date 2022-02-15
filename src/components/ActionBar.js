@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { BiArchive, BiDice5 } from 'react-icons/bi';
 import styled from 'styled-components';
 import { useTasks } from '../contexts/TasksContext';
@@ -33,6 +34,7 @@ function ActionBar() {
 
     const previousRandomIndex = useRef();
 
+    // eslint-disable-next-line no-unused-vars
     function pickRandomTask() {
         const taskArray = Object.values(tasks);
         let randomIndex = getRandomIndexForArrayOfLength(taskArray.length);
@@ -53,12 +55,12 @@ function ActionBar() {
                     <span>Clear completed</span>
                 </ActionButton>
             </div>
-            <div>
+            {/* <div>
                 <ActionButton onClick={() => pickRandomTask()}>
                     <BiDice5 />
                     <span>Pick random</span>
                 </ActionButton>
-            </div>
+            </div> */}
         </ActionBarContainer>
     );
 }
