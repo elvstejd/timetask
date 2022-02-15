@@ -110,7 +110,7 @@ function Overview() {
 
 
     return (
-        <div>
+        <>
             <CardTitle>
                 <h3>Overview</h3>
             </CardTitle>
@@ -139,7 +139,7 @@ function Overview() {
                     </InfoTextContainer>
                 </InfoItemContainer>
             </Card>
-        </div>
+        </>
     );
 }
 
