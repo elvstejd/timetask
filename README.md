@@ -2,6 +2,7 @@
 # Timetask
 
 Todo app + timer.
+[API code here.](https://github.com/elvstejd/timetask-server)
 
 
 ## Screenshots
@@ -15,12 +16,18 @@ Todo app + timer.
 
 - Time your tasks
 - See how many tasks you've completed in the day
-- Get a sound notificacion when the timer ends
+- Get a sound notification when the timer ends
+
+## ENV variables
+
+```bash
+  REACT_APP_API_BASE_URL=https://example.com
+```
 
 ## Roadmap
 
-- Make the website responsive
-- Have individual users
+- [x] Make the website responsive
+- [ ] Have individual users
 
   
 ## Getting started
