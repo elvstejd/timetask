@@ -3,7 +3,7 @@ import { createTask, durationToMiliseconds } from '../utils/helpers';
 import { useCountdown } from './countdownContext';
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+// axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const TasksContext = createContext();
 

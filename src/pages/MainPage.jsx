@@ -6,7 +6,7 @@ import Tasks from '../components/Tasks';
 import CurrentSession from '../components/CurrentSession';
 import { useTasks } from '../contexts/TasksContext';
 import axios from 'axios';
-axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+// axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
 
 const Main = styled.main`
