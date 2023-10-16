@@ -1,6 +1,7 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-export const useTaskStore = create((set) => ({
+export const useTaskStore = create(persist((set) => ({
   tasks: {},
   taskOrder: [],
   setTaskOrder: (newTaskOrder) => set({ taskOrder: newTaskOrder }),
@@ -25,6 +26,8 @@ export const useTaskStore = create((set) => ({
   updateTask: (updatedTask) => set((state) => ({ tasks: { ...state.tasks, [updatedTask.id]: updatedTask } })),
   selectedTask: {},
   setSelectedTask: (task) => set({ selectedTask: task }),
+}), {
+  name: 'task-storage',
 }));
 
 
