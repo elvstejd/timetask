@@ -1,7 +1,8 @@
 import { useRef, useEffect } from 'react';
 import { GrDrag } from 'react-icons/gr';
-import { useTasks } from '../contexts/TasksContext';
 import styled from 'styled-components';
+import { useTaskStore } from '../stores';
+import { createTask } from '../utils/helpers';
 
 const TaskInputContainer = styled.div`
     display: flex;
@@ -37,7 +38,7 @@ const Container = styled.div`
 
 
 function TaskInput(props) {
-    const { addNewTask } = useTasks();
+    const { addTask, taskOrder, setTaskOrder } = useTaskStore();
     const textareaRef = useRef();
 
     useEffect(() => {
@@ -45,14 +46,18 @@ function TaskInput(props) {
         textareaRef.current.focus();
     }, []);
 
+    function saveNewTask(title) {
+        const newTask = createTask(title);
+        addTask(newTask);
+        setTaskOrder(taskOrder.concat(newTask.id));
+    }
+
 
     function handleKeyPress(e) {
         if (e.key === 'Enter') {
-            const value = e.target.innerText.trim();
+            const title = e.target.innerText.trim();
 
-            if (value) {
-                addNewTask(value);
-            }
+            if (title) saveNewTask(title);
 
             e.target.innerText = "";
             if (e.preventDefault) e.preventDefault();
@@ -60,10 +65,10 @@ function TaskInput(props) {
     }
 
     function handleFocusOut(e) {
-        const value = e.target.innerText.trim();
-        if (value) {
-            addNewTask(value);
-        }
+        const title = e.target.innerText.trim();
+
+        if (title) saveNewTask(title);
+
         props.onFocusOut();
     }
 

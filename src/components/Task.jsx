@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { GrDrag } from 'react-icons/gr';
 import { BiRename, BiTrash } from 'react-icons/bi';
-import { isValidDuration } from '../utils/helpers';
-import { useTasks } from '../contexts/TasksContext';
+import { durationToMiliseconds, isValidDuration } from '../utils/helpers';
 import styled from 'styled-components';
+import { useTaskStore } from '../stores';
+import { useCountdown } from '../contexts/countdownContext';
 
 const TaskContainer = styled.div` 
     display: flex;
@@ -115,7 +116,8 @@ const ActionsContainer = styled.div`
 
 function Task(props) {
     const [isEditing, setIsEditing] = useState(false);
-    const { deleteTask, updateTaskTitle, updateTaskDuration, loadTask, countdownIsRunning } = useTasks();
+    const { removeTask, updateTask, setSelectedTask } = useTaskStore();
+    const { countdownIsRunning, setTimeInMs } = useCountdown();
 
     const editSpanRef = useRef();
     const durationSpanRef = useRef();
@@ -127,7 +129,7 @@ function Task(props) {
 
     function onTaskDelete(e) {
         e.stopPropagation();
-        deleteTask(props.index, props.currentTask.id);
+        removeTask(props.index, props.currentTask.id);
     }
 
     function handleKeyPress(e) {
@@ -137,7 +139,7 @@ function Task(props) {
             if (value) {
                 const titleIsDifferent = value !== props.currentTask.title;
                 if (titleIsDifferent) {
-                    updateTaskTitle(props.currentTask.id, value);
+                    updateTask({ ...props.currentTask, title: value });
                     console.log('value changed', value);
                 } else {
                     console.log('no change');
@@ -145,7 +147,6 @@ function Task(props) {
             }
 
             setIsEditing(false);
-            // if(e.preventDefault) e.preventDefault(); 
         }
     }
 
@@ -155,7 +156,7 @@ function Task(props) {
         if (value) {
             const titleIsDifferent = value !== props.currentTask.title;
             if (titleIsDifferent) {
-                updateTaskTitle(props.currentTask.id, value);
+                updateTask({ ...props.currentTask, title: value });
                 console.log('value changed', value);
             } else {
                 console.log('no change');
@@ -182,7 +183,7 @@ function Task(props) {
             if (!duration || duration === props.currentTask.duration) return;
 
             if (isValidDuration(duration)) {
-                updateTaskDuration(props.currentTask.id, duration);
+                updateTask({ ...props.currentTask, duration });
             } else {
                 e.target.innerText = props.currentTask.duration;
                 console.log("Please enter a valid duration next time");
@@ -197,7 +198,7 @@ function Task(props) {
         if (!duration || duration === props.currentTask.duration) return;
 
         if (isValidDuration(duration)) {
-            updateTaskDuration(props.currentTask.id, duration);
+            updateTask({ ...props.currentTask, duration });
         } else {
             e.target.innerText = props.currentTask.duration;
             console.log("Please enter a valid duration next time");
@@ -228,8 +229,9 @@ function Task(props) {
 
     function handleTaskSelect() {
         if (props.currentTask.done) return;
-        loadTask(props.currentTask);
-        console.log("task load", props.currentTask);
+        if (countdownIsRunning) return;
+        setSelectedTask(props.currentTask);
+        setTimeInMs(durationToMiliseconds(props.currentTask.duration));
     }
 
     return (

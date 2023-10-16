@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { useCountdown } from "../contexts/countdownContext";
-import { useTasks } from "../contexts/TasksContext";
 import { millisecondsToHours, millisecondsToMinutes, millisecondsToSeconds, pad } from '../utils/countdownHelpers';
 import doneSound from '../sounds/task_done.mp3';
 import finishSound from '../sounds/alarm_beep_3.mp3';
+import { useTaskStore } from "../stores";
 
 const Container = styled.div`
     width: 100%;
@@ -55,7 +55,7 @@ function Countdown() {
     const [second, setSecond] = useState(0);
 
     const { msDifference, start, stop, pause, countdownIsRunning, countdownHasFinished } = useCountdown();
-    const { clearLoadedTask, loadedTask, markTaskDone, thereIsALoadedTask } = useTasks();
+    const { selectedTask, setSelectedTask, updateTask } = useTaskStore();
 
     const taskDoneSound = new Audio(doneSound);
     const countdownFinishSound = new Audio(finishSound);
@@ -69,18 +69,25 @@ function Countdown() {
 
     useEffect(() => {
         if (countdownHasFinished) {
-            console.log('done');
             countdownFinishSound.play();
             stop();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [countdownHasFinished]);
 
+    function thereIsASelectedTask() {
+        return Object.keys(selectedTask).length > 0;
+    }
+
     function handleDoneClick() {
-        if (!thereIsALoadedTask) return;
+        if (!thereIsASelectedTask()) return;
         taskDoneSound.play();
-        markTaskDone(loadedTask.id);
-        clearLoadedTask();
+
+        const today = new Date();
+
+        updateTask({ ...selectedTask, done: true, completionDate: today });
+        setSelectedTask({});
+
         stop();
     }
 
@@ -95,9 +102,9 @@ function Countdown() {
                 {countdownIsRunning ? (
                     <ControlButton onClick={() => pause()}>Pause</ControlButton>
                 ) : (
-                    <ControlButton disabled={!thereIsALoadedTask} onClick={() => start()}>Start</ControlButton>
+                    <ControlButton disabled={!thereIsASelectedTask()} onClick={() => start()}>Start</ControlButton>
                 )}
-                <ControlButton onClick={handleDoneClick} disabled={!thereIsALoadedTask} style={{ marginLeft: '1rem' }}>
+                <ControlButton onClick={handleDoneClick} disabled={!thereIsASelectedTask()} style={{ marginLeft: '1rem' }}>
                     Done
                 </ControlButton>
             </ButtonsContainer>

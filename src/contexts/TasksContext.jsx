@@ -17,22 +17,6 @@ function TasksProvider({ children }) {
     const [loadedTask, setLoadedTask] = useState({}); // { title, id }
     const { countdownIsRunning, setTimeInMs } = useCountdown();
 
-    // function addNewTask(title) {
-    //     const newTask = createTask(title);
-    //     const newTasksObject = Object.assign({}, tasks);
-    //     newTasksObject[newTask.id] = newTask;
-
-    //     setTasks(newTasksObject);
-    //     setTaskOrder(taskOrder.concat(newTask.id));
-    //     axios.post('http://localhost:5000/tasks', {
-    //         title: newTask.title,
-    //         duration: newTask.duration
-    //     }).then(res => {
-    //         const newId = res.data.id;
-    //         updateTaskId(newTask.id, newId);
-    //     });
-    // }
-
     function addNewTask(title) {
         const newTask = createTask(title);
         const newTasksObject = Object.assign({}, tasks);
