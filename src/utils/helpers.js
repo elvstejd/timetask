@@ -1,6 +1,6 @@
 import shortid from "shortid";
 
-function createTask(title) {
+export function createTask(title) {
     let duration = "30m";
     let newTitle = title;
     if (parseDurationFromName(title)) {
@@ -25,7 +25,7 @@ function parseDurationFromName(taskTitle) {
     }
 }
 
-function durationToMiliseconds(duration) {
+export function durationToMiliseconds(duration) {
     if (!duration) return 0;
 
     const hourRegex = /\d+h/g;
@@ -39,7 +39,7 @@ function durationToMiliseconds(duration) {
     return minutes * 60000 + hours * 3600000;
 }
 
-function isValidDuration(duration) {
+export function isValidDuration(duration) {
     const re = /(\d+h)(\d+m)|(\d+h)|(\d+m)/i;
     if (duration.length > 5) {
         return false;
@@ -51,11 +51,11 @@ function isValidDuration(duration) {
     return false;
 }
 
-function getRandomIndexForArrayOfLength(arrayLength) {
+export function getRandomIndexForArrayOfLength(arrayLength) {
     return Math.floor(Math.random() * arrayLength);
 }
 
-const isToday = (someDate) => {
+export const isToday = (someDate) => {
     // https://flaviocopes.com/how-to-determine-date-is-today-javascript/
     if (!someDate) return;
     const thatDate = new Date(someDate);
@@ -67,12 +67,3 @@ const isToday = (someDate) => {
         // eslint-disable-next-line eqeqeq
         thatDate.getFullYear() == today.getFullYear();
 }
-
-
-export {
-    createTask,
-    durationToMiliseconds,
-    isValidDuration,
-    getRandomIndexForArrayOfLength,
-    isToday
-};

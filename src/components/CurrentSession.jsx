@@ -1,8 +1,8 @@
 import Countdown from './Countdown';
-import { useTasks } from '../contexts/TasksContext';
 import { Card } from '../styles/shared/Card';
 import { CardTitle } from '../styles/shared/CardTitle';
 import styled from 'styled-components';
+import { useTaskStore } from '../stores';
 
 
 const TimerCard = styled(Card)`
@@ -19,7 +19,7 @@ const TaskTitle = styled.p`
 `;
 
 function CurrentSession() {
-    const { loadedTask } = useTasks();
+    const { selectedTask } = useTaskStore();
 
     return (
         <div>
@@ -28,7 +28,7 @@ function CurrentSession() {
             </CardTitle>
 
             <TimerCard>
-                <TaskTitle>{loadedTask.title ? loadedTask.title : "-- --"}</TaskTitle>
+                <TaskTitle>{selectedTask.title ? selectedTask.title : "-- --"}</TaskTitle>
                 <Countdown />
             </TimerCard>
         </div>
