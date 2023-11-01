@@ -3,9 +3,9 @@ import { BiTrendingUp, BiStopwatch } from 'react-icons/bi';
 import styled from 'styled-components';
 import { CardTitle } from '../styles/shared/CardTitle';
 import { Card } from '../styles/shared/Card';
-import { useTasks } from '../contexts/TasksContext';
 import { millisecondsToHours, millisecondsToMinutes } from '../utils/countdownHelpers';
 import { durationToMiliseconds, isToday } from '../utils/helpers';
+import { useTaskStore } from '../stores';
 
 const BigSquareIcon = styled.div`
     display: flex;
@@ -57,7 +57,7 @@ function Overview() {
     const [minutes, setMinute] = useState(0);
     const [completedToday, setCompletedToday] = useState(0);
 
-    const { tasks } = useTasks();
+    const { tasks } = useTaskStore();
 
     useEffect(() => {
         if (!tasks) return;

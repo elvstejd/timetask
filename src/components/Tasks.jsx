@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { useTasks } from '../contexts/TasksContext';
 import Task from './Task';
-import Spinner from './Spinner';
 import TaskInput from './TaskInput';
 import styled from 'styled-components';
 import { TaskContainer } from '../styles/shared/TaskContainer';
+import { useTaskStore } from '../stores';
 
 const NewTaskButton = styled.div`
     padding: 1rem 1.3rem;
@@ -22,7 +21,7 @@ const NewTaskButton = styled.div`
 
 function Tasks() {
     const [isAddingTask, setIsAddingTask] = useState(false);
-    const { tasks, taskOrder, setTaskOrder } = useTasks();
+    const { tasks, taskOrder, setTaskOrder } = useTaskStore();
 
     function onDragEnd(result) {
         const { destination, source, draggableId } = result;
@@ -49,12 +48,10 @@ function Tasks() {
         setIsAddingTask(false);
     }
 
-    if (!tasks) return <Spinner />;
-
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="tasks">
-                {(provided, snapshot) => (
+                {(provided) => (
                     <TaskContainer
                         ref={provided.innerRef}
                         {...provided.droppableProps}

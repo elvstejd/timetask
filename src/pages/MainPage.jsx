@@ -1,12 +1,8 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
 import Overview from '../components/Overview';
 import ActionBar from '../components/ActionBar';
 import Tasks from '../components/Tasks';
 import CurrentSession from '../components/CurrentSession';
-import { useTasks } from '../contexts/TasksContext';
-import axios from 'axios';
-// axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
 
 const Main = styled.main`
@@ -66,16 +62,6 @@ const RightSection = styled.div`
 `;
 
 function MainPage() {
-    const { setFetchedTasks } = useTasks();
-
-    useEffect(() => {
-        axios.get('/tasks').then(res => {
-            console.log(res.data);
-            setFetchedTasks(res.data);
-        })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     return (
         <div>
             <Main>
